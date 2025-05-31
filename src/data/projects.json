@@ -1,0 +1,14 @@
+[
+  {
+    "title": "AI Chat Assistant",
+    "description": "An AI chatbot using React + OpenAI API."
+  },
+  {
+    "title": "Volunteer Finder App",
+    "description": "React app to discover and apply for volunteer jobs."
+  },
+  {
+    "title": "Portfolio Website",
+    "description": "This site! Built with Next.js and Tailwind CSS."
+  }
+]
