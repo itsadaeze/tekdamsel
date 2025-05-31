@@ -1,5 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+const navLinks = [
+  { href: "#hero", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+];
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -9,46 +18,53 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <nav className="fixed top-0 w-full bg-white dark:bg-gray-950 z-50 shadow-md">
-      <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="font-bold text-black dark:text-white text-lg">
+    <nav className="fixed top-0 w-full bg-white dark:bg-gray-950 shadow-md z-50">
+      <div className="max-w-[1440px] mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo with gradient */}
+        <Link
+          href="#hero"
+          className="text-lg font-semibold bg-gradient-to-r from-blue-500 via-blue-800 to-purple-800 bg-clip-text text-transparent"
+        >
           Adaeze.dev
+        </Link>
+
+        {/* Desktop nav + toggle */}
+        <div className="hidden md:flex items-center space-x-10">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition"
+            >
+              {label}
+            </Link>
+          ))}
+          <ToggleButton darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
-        <div className="flex items-center space-x-4 text-sm">
-          <a
-            href="#hero"
-            className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-          >
-            About
-          </a>
-          <a
-            href="#projects"
-            className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-          >
-            Projects
-          </a>
-          <a
-            href="#contact"
-            className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-          >
-            Contact
-          </a>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="ml-2 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded"
-          >
-            {darkMode ? "🌙" : "☀️"}
-          </button>
+
+        {/* Mobile: Only toggle */}
+        <div className="md:hidden">
+          <ToggleButton darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
       </div>
     </nav>
   );
 };
+
+const ToggleButton = ({
+  darkMode,
+  setDarkMode,
+}: {
+  darkMode: boolean;
+  setDarkMode: (val: boolean) => void;
+}) => (
+  <button
+    onClick={() => setDarkMode(!darkMode)}
+    aria-label="Toggle Dark Mode"
+    className="text-lg px-2 py-1 rounded border border-gray-300 dark:border-gray-600"
+  >
+    {darkMode ? "🌙" : "☀️"}
+  </button>
+);
 
 export default Navbar;
