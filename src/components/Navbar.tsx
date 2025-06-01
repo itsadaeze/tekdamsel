@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -14,10 +15,25 @@ const navLinks = [
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeLink, setActiveLink] = useState<string>("#hero");
+  
 
   useEffect(() => {
+    // Run on initial load
+    const saved = localStorage.getItem("darkMode");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    const shouldUseDark = saved === "true" || (!saved && prefersDark);
+    setDarkMode(shouldUseDark);
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
+  
 
   useEffect(() => {
     const handleScroll = () => {

@@ -26,7 +26,7 @@ const Hero = () => {
       id="hero"
       className="h-screen flex flex-col justify-center items-center text-center px-6 bg-gray-100 dark:bg-gray-950 text-black dark:text-white"
     >
-      <h1 className="text-4xl md:text-6xl font-bold">
+      <h1 className="text-4xl md:text-6xl font-bold ">
         {parts.map((part, i) =>
           part === "Adaeze" ? (
             <span
@@ -42,7 +42,7 @@ const Hero = () => {
         <span className="animate-pulse">|</span>
       </h1>
 
-      <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-xl">
+      <p className="mt-4 text-lg text-center md:text-left md:text-xl text-yellow-400 dark:text-gray-400 max-w-xl">
         Frontend Engineer turning ideas into beautiful web experiences.
       </p>
 

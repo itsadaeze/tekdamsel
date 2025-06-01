@@ -33,8 +33,8 @@ const BottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 w-full z-50 md:hidden flex ">
-      <div className="relative flex justify-between items-center bg-blue-800 text-yellow-400 px-6 py-5 rounded-tr-md rounded-tl-md w-full max-w-md shadow-xl">
-        {/* Notch (concave curve) */}
+      <div className="relative flex justify-between items-center bg-blue-800 text-white px-6 py-5 rounded-tr-md rounded-tl-md w-full max-w-md shadow-xl">
+      
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 rounded-t-full z-0"
           style={{
@@ -50,10 +50,10 @@ const BottomNav = () => {
             <div key={item.id} className="relative flex-1 flex justify-center">
               {isActive && (
                 <div className="absolute -top-13 z-10 flex flex-col items-center">
-                  <div className="w-14 h-14 bg-yellow-400 border-6 border-blue-800 text-black rounded-full flex items-center justify-center shadow-lg transition-all duration-300">
+                  <div className="w-14 h-14 bg-white border-6 border-blue-800 text-black rounded-full flex items-center justify-center shadow-lg transition-all duration-300">
                     {item.icon}
                   </div>
-                  <span className="mt-2 text-xs font-semibold text-yellow-400">
+                  <span className="mt-2 text-xs font-bold text-white ">
                     {item.label}
                   </span>
                 </div>
