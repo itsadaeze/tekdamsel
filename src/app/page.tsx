@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import About from "@/components/About";
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skill";
-
+import './globals.css'
 
 export default function Home() {
   useEffect(() => {

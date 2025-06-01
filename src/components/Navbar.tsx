@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,16 +12,41 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [activeLink, setActiveLink] = useState<string>("#hero");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      let currentSection = "#hero";
+
+      for (const link of navLinks) {
+        const section = document.querySelector(link.href);
+        if (section) {
+          const top = (section as HTMLElement).offsetTop - 80;
+          const bottom = top + (section as HTMLElement).offsetHeight;
+          if (scrollPosition >= top && scrollPosition < bottom) {
+            currentSection = link.href;
+          }
+        }
+      }
+
+      setActiveLink(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run on mount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <nav className="fixed top-0 w-full bg-white dark:bg-gray-950 shadow-md z-50">
       <div className="max-w-[1440px] mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo with gradient */}
+        {/* Logo */}
         <Link
           href="#hero"
           className="text-lg font-semibold bg-gradient-to-r from-blue-500 via-blue-800 to-purple-800 bg-clip-text text-transparent"
@@ -28,21 +54,28 @@ const Navbar = () => {
           Adaeze.dev
         </Link>
 
-        {/* Desktop nav + toggle */}
+        {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-10">
           {navLinks.map(({ href, label }) => (
             <Link
               key={label}
               href={href}
-              className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition"
+              className="relative flex flex-col items-center text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition group"
             >
               {label}
+              <span
+                className={`mt-1 h-2 w-2 rounded-full bg-white transition-all duration-300 ${
+                  activeLink === href
+                    ? "opacity-100"
+                    : "opacity-0 group-hover:opacity-100"
+                }`}
+              />
             </Link>
           ))}
           <ToggleButton darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
 
-        {/* Mobile: Only toggle */}
+        {/* Mobile Toggle */}
         <div className="md:hidden">
           <ToggleButton darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
